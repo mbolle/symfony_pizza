@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+
+{% block body %}
+<h1>Pizzaria Pepperoni Party</h1>
+<ul>
+    {% for value in pizzas %}
+        <li>{{ value }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
