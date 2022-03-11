@@ -18,4 +18,12 @@ class PizzaController extends AbstractController
             'pizzas'=> $pizzas
         ]);
     }
+
+    /**
+     * @Route ("/Categories")
+     */
+    public function Categories()
+    {
+        return new Response('Future page to show categories');
+    }
 }
