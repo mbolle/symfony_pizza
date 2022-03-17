@@ -1,13 +1,44 @@
 {% extends 'base.html.twig'%}
-{% block title %}Pizzaria Sopranos Home{% endblock %}
+{% block title %}Pizza Sopranos Home{% endblock %}
 {% block body %}
-<h1>Pizzaria Sopranos</h1>
 
-    <h2>pizzas ({{ pizzas|length }})</h2>
-<ul>
-    {% for value in pizzas %}
-        <li>{{ value }}</li>
-    {% endfor %}
-</ul>
+    <h2 class="text-center">categories ({{ categories|length }})</h2>
 
+    <div class="container">
+    <div class="card-deck">
+        <div class="row">
+        <div class="col-sm-12 col-md-9 col-lg-4">
+            <div class="card">
+                <img class="card-img-top" src="{{ asset('images/PizzaVlees.jpg') }}" alt="Card image">
+                <div class="card-body">
+                    <p>Vlees</p>
+                    <p class="card-text">Bekijk de lekkerste pizza's bij deze categorie.</p>
+                    <a href="#" class="btn btn-danger">Naar Pizza Vlees</a>
+                </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-9 col-lg-4">
+            <div class="card">
+                <img class="card-img-top" src="{{ asset('images/VeggiPizza.jpg') }}" alt="Card image">
+                <div class="card-body">
+                    <p>Vegetarisch</p>
+                    <p class="card-text">Bekijk de lekkerste pizza's bij deze categorie.</p>
+                    <a href="#" class="btn btn-danger">Naar Pizza Vegetarisch</a>
+                </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-9 col-lg-4">
+            <div class="card">
+                <img class="card-img-top" src="{{ asset('images/PizzaVis.jpg') }}" alt="Card image">
+                <div class="card-body">
+                    <p>Vis</p>
+                    <p class="card-text">Bekijk de lekkerste pizza's bij deze categorie.</p>
+                    <a href="#" class="btn btn-danger">Naar Pizza Vis</a>
+                </div>
+                </div>
+            </div>
+        </div>
+         </div>
+    </div>
+    </div>
 {% endblock %}

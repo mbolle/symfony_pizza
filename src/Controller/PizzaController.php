@@ -9,21 +9,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class PizzaController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="pizza_homepage")
      */
     public function randomPizzas(): Response
     {
-        $pizzas = ["hawaii", "Salami", "Chicken", "Tonijn"];
+        $pizzaCategories = ["Vegetarische pizza", "Vlees pizza", "Vis pizza"];
         return $this->render("pizza/home.html.twig", [
-            'pizzas'=> $pizzas
+            'categories'=> $pizzaCategories
         ]);
     }
 
     /**
-     * @Route ("/Categories")
+     * @Route ("/", name="pizza_contact")
      */
-    public function Categories()
+    public function contact(): Response
     {
         return new Response('Future page to show categories');
+        return $this->render("pizza/contact.html.twig");
     }
 }
