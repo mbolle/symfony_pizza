@@ -1,7 +1,9 @@
 {% extends 'base.html.twig'%}
-
+{% block title %}Pizzaria Sopranos Home{% endblock %}
 {% block body %}
 <h1>Pizzaria Sopranos</h1>
+
+    <h2>pizzas ({{ pizzas|length }})</h2>
 <ul>
     {% for value in pizzas %}
         <li>{{ value }}</li>
