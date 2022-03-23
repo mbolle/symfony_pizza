@@ -27,7 +27,6 @@ class PizzaController extends AbstractController
      */
     public function contact(): Response
     {
-        return new Response('Future page to show categories');
         return $this->render("pizza/contact.html.twig");
     }
 

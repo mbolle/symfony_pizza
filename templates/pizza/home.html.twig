@@ -2,46 +2,26 @@
 {% block title %}Pizza Sopranos Home{% endblock %}
 {% block body %}
 
-    {% for category in cat %}
-    <p>{{ category.name }}</p>
-{% endfor %}
-{#    <h2 class="text-center">categories ({{ categories|length }})</h2>#}
+{#    <h2 class="text-center">categories ({{ category|length }})</h2>#}
 
     <div class="container">
     <div class="card-deck">
         <div class="row">
-        <div class="col-sm-12 col-md-9 col-lg-4">
-            <div class="card">
-                <img class="card-img-top" src="{{ asset('images/PizzaVlees.jpg') }}" alt="Card image">
-                <div class="card-body">
-                    <p>Vlees</p>
-                    <p class="card-text">Bekijk de lekkerste pizza's bij deze categorie.</p>
-                    <a href="#" class="btn btn-danger">Naar Pizza Vlees</a>
-                </div>
-                </div>
-            </div>
+        {% for category in cat %}
+
             <div class="col-sm-12 col-md-9 col-lg-4">
-            <div class="card">
-                <img class="card-img-top" src="{{ asset('images/VeggiPizza.jpg') }}" alt="Card image">
-                <div class="card-body">
-                    <p>Vegetarisch</p>
-                    <p class="card-text">Bekijk de lekkerste pizza's bij deze categorie.</p>
-                    <a href="#" class="btn btn-danger">Naar Pizza Vegetarisch</a>
-                </div>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-9 col-lg-4">
-            <div class="card">
-                <img class="card-img-top" src="{{ asset('images/PizzaVis.jpg') }}" alt="Card image">
-                <div class="card-body">
-                    <p>Vis</p>
-                    <p class="card-text">Bekijk de lekkerste pizza's bij deze categorie.</p>
-                    <a href="#" class="btn btn-danger">Naar Pizza Vis</a>
-                </div>
+                <div class="card">
+                    <img class="card-img-top" src="{{ category.image }}" alt="Card image">
+                    <div class="card-body">
+                        <p>{{ category.name }}</p>
+                        <p class="card-text">Bekijk de lekkerste pizza's bij deze categorie.</p>
+                        <a href="#" class="btn btn-danger">Naar {{ category.name }} </a>
+                    </div>
                 </div>
             </div>
+
+        {% endfor %}
         </div>
-         </div>
     </div>
     </div>
 {% endblock %}
