@@ -2,7 +2,10 @@
 {% block title %}Pizza Sopranos Home{% endblock %}
 {% block body %}
 
-    <h2 class="text-center">categories ({{ categories|length }})</h2>
+    {% for category in cat %}
+    <p>{{ category.name }}</p>
+{% endfor %}
+{#    <h2 class="text-center">categories ({{ categories|length }})</h2>#}
 
     <div class="container">
     <div class="card-deck">
