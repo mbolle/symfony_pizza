@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +28,16 @@ class Category
      * @ORM\Column(type="string", length=255)
      */
     private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Pizza::class, mappedBy="pizza")
+     */
+    private $pizza;
+
+    public function __construct()
+    {
+        $this->pizza = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -55,4 +67,35 @@ class Category
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Pizza>
+     */
+    public function getPizza(): Collection
+    {
+        return $this->pizza;
+    }
+
+    public function addPizza(Pizza $pizza): self
+    {
+        if (!$this->pizza->contains($pizza)) {
+            $this->pizza[] = $pizza;
+            $pizza->setPizza($this);
+        }
+
+        return $this;
+    }
+
+    public function removePizza(Pizza $pizza): self
+    {
+        if ($this->pizza->removeElement($pizza)) {
+            // set the owning side to null (unless already changed)
+            if ($pizza->getPizza() === $this) {
+                $pizza->setPizza(null);
+            }
+        }
+
+        return $this;
+    }
 }
+
