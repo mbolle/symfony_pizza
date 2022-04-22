@@ -40,6 +40,11 @@ class Pizza
      */
     private $order_id;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
     public function __construct()
     {
         $this->size = new ArrayCollection();
@@ -131,6 +136,18 @@ class Pizza
                 $orderId->setPizza(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

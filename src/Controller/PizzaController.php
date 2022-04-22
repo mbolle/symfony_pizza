@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Order;
 use App\Entity\Pizza;
 use App\Forms\OrderType;
+use App\Repository\PizzaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,13 +50,26 @@ class PizzaController extends AbstractController
     }
 
     /**
+     * @param int $id
+     * @return void
+     * @Route("/pizza/{id}")
+     */
+
+    public function pizza(int $id, PizzaRepository $pizzaRepository){
+        $pizzas = $pizzaRepository->findBy(array("pizza" => $id));
+        return $this->render("pizza/pizza.html.twig",[
+            "pizzas" => $pizzas
+        ]);
+    }
+
+    /**
      * @Route("/order/{id}", name="app_order");
      */
-    public function order(Request $request, Pizza $pizza, ManagerRegistry $managerRegistry)
+    public function order(Request $request, Pizza $pizza, EntityManagerInterface $em)
     {
         $pizzaName = $pizza->getName();
 
-        $entityManager = $managerRegistry->getManager();
+//        $entityManager = $managerRegistry->getManager();
         $order = new Order();
         $order->setPizza($pizza);
         $order->setStatus("in progress");
@@ -63,8 +77,8 @@ class PizzaController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $order = $form->getData();
-            $entityManager->persist($order);
-            $entityManager->flush();
+            $em->persist($order);
+            $em->flush();
             return $this->redirectToRoute('app_contact');
         }
         return $this->renderForm('order/order.html.twig', [

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig'%}
+{% block title %}Pizza Sopranos Pizza{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="card-deck">
+            <div class="row">
+                {% for pizza in pizzas %}
+
+                    <div class="col-sm-12 col-md-9 col-lg-4">
+                        <div class="card">
+                          <img class="card-img-top" src="/{{ pizza.image }}" alt="Card image">
+                            <div class="card-body">
+                                <p>{{ pizza.name }}</p>
+                                <a href='/order/{{ pizza.id }}' class="btn btn-danger">Naar order </a>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
