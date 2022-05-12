@@ -29,11 +29,11 @@ class PizzaController extends AbstractController
 //    }
 //
     /**
-     * @Route ("/contact", name="pizza_contact")
+     * @Route ("/login", name="pizza_login")
      */
     public function contact(): Response
     {
-        return $this->render("pizza/contact.html.twig");
+        return $this->render("pizza/login.html.twig");
     }
 
     /**
@@ -79,7 +79,7 @@ class PizzaController extends AbstractController
             $order = $form->getData();
             $em->persist($order);
             $em->flush();
-            return $this->redirectToRoute('app_contact');
+            return $this->redirectToRoute('pizza_homepage');
         }
         return $this->renderForm('order/order.html.twig', [
             'pizza' => $pizzaName,

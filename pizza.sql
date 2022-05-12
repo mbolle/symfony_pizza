@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 22 apr 2022 om 14:32
+-- Gegenereerd op: 12 mei 2022 om 10:24
 -- Serverversie: 10.4.22-MariaDB
 -- PHP-versie: 7.4.27
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Tabelstructuur voor tabel `category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -48,6 +49,7 @@ INSERT INTO `category` (`id`, `name`, `image`) VALUES
 -- Tabelstructuur voor tabel `doctrine_migration_versions`
 --
 
+DROP TABLE IF EXISTS `doctrine_migration_versions`;
 CREATE TABLE `doctrine_migration_versions` (
   `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
@@ -61,7 +63,8 @@ CREATE TABLE `doctrine_migration_versions` (
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20220422111253', '2022-04-22 13:13:02', 507),
 ('DoctrineMigrations\\Version20220422120954', '2022-04-22 14:11:00', 24),
-('DoctrineMigrations\\Version20220422121052', '2022-04-22 14:11:00', 15);
+('DoctrineMigrations\\Version20220422121052', '2022-04-22 14:11:00', 15),
+('DoctrineMigrations\\Version20220512080021', '2022-05-12 10:01:05', 58);
 
 -- --------------------------------------------------------
 
@@ -69,6 +72,7 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 -- Tabelstructuur voor tabel `order`
 --
 
+DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(11) NOT NULL,
   `pizza_id` int(11) NOT NULL,
@@ -77,8 +81,20 @@ CREATE TABLE `order` (
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `zipcode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `order`
+--
+
+INSERT INTO `order` (`id`, `pizza_id`, `fname`, `sname`, `address`, `city`, `zipcode`, `status`, `email`, `size_id`) VALUES
+(1, 1, 'Melanie', 'Bolle', 'Bergmannstraat 14', 'Den Haag', '2523kr', 'in progress', 'MelanieBolle@hotmail.com', 0),
+(2, 1, 'Melanie', 'Bolle', 'Bergmannstraat 14', 'Den Haag', '2523kr', 'in progress', 'MelanieBolle@hotmail.com', 0),
+(3, 1, 'Melanie', 'Bolle', 'Bergmannstraat 14', 'Den Haag', '2523kr', 'in progress', 'MelanieBolle@hotmail.com', 0),
+(4, 1, 'Melanie', 'Bolle', 'Bergmannstraat 14', 'Den Haag', '2523kr', 'in progress', 'MelanieBolle@hotmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -86,6 +102,7 @@ CREATE TABLE `order` (
 -- Tabelstructuur voor tabel `pizza`
 --
 
+DROP TABLE IF EXISTS `pizza`;
 CREATE TABLE `pizza` (
   `id` int(11) NOT NULL,
   `pizza_id` int(11) NOT NULL,
@@ -102,7 +119,7 @@ INSERT INTO `pizza` (`id`, `pizza_id`, `name`, `image`) VALUES
 (2, 1, 'Pizza Meatlover', 'images/PizzaMeatlover.jpg'),
 (3, 2, 'Pizza Tonijn', 'images/PizzaTonijn.jpg'),
 (4, 2, 'Pizza Zeevruchten', 'images/PizzaZeevruchten.jpg'),
-(5, 3, 'Pizza Margerita', 'images/PizzaMargeria.jpg'),
+(5, 3, 'Pizza Margerita', 'images/PizzaMargerita.jpg'),
 (6, 3, 'Pizza Vier Kazen', 'images/PizzaKaas.jpg');
 
 -- --------------------------------------------------------
@@ -111,11 +128,20 @@ INSERT INTO `pizza` (`id`, `pizza_id`, `name`, `image`) VALUES
 -- Tabelstructuur voor tabel `size`
 --
 
+DROP TABLE IF EXISTS `size`;
 CREATE TABLE `size` (
   `id` int(11) NOT NULL,
-  `size_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `size`
+--
+
+INSERT INTO `size` (`id`, `name`) VALUES
+(1, 'medium pizza (25 cm)'),
+(2, 'large pizza (35 cm)'),
+(3, 'calzone');
 
 -- --------------------------------------------------------
 
@@ -123,6 +149,7 @@ CREATE TABLE `size` (
 -- Tabelstructuur voor tabel `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -164,8 +191,7 @@ ALTER TABLE `pizza`
 -- Indexen voor tabel `size`
 --
 ALTER TABLE `size`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `IDX_F7C0246A498DA827` (`size_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexen voor tabel `user`
@@ -187,7 +213,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT voor een tabel `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `pizza`
@@ -199,7 +225,7 @@ ALTER TABLE `pizza`
 -- AUTO_INCREMENT voor een tabel `size`
 --
 ALTER TABLE `size`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `user`
@@ -222,12 +248,6 @@ ALTER TABLE `order`
 --
 ALTER TABLE `pizza`
   ADD CONSTRAINT `FK_CFDD826FD41D1D42` FOREIGN KEY (`pizza_id`) REFERENCES `category` (`id`);
-
---
--- Beperkingen voor tabel `size`
---
-ALTER TABLE `size`
-  ADD CONSTRAINT `FK_F7C0246A498DA827` FOREIGN KEY (`size_id`) REFERENCES `pizza` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

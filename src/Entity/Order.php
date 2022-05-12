@@ -59,6 +59,12 @@ class Order
      */
     private $email;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Size::class, inversedBy="orders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $size;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,6 +162,18 @@ class Order
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSize(): ?Size
+    {
+        return $this->size;
+    }
+
+    public function setSize(?Size $size): self
+    {
+        $this->size = $size;
 
         return $this;
     }

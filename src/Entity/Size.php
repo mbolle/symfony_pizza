@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SizeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,10 +25,14 @@ class Size
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Pizza::class, inversedBy="size")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="size")
      */
-    private $Size;
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,14 +51,32 @@ class Size
         return $this;
     }
 
-    public function getSize(): ?Pizza
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
     {
-        return $this->Size;
+        return $this->orders;
     }
 
-    public function setSize(?Pizza $Size): self
+    public function addOrder(Order $order): self
     {
-        $this->Size = $Size;
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setSize($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getSize() === $this) {
+                $order->setSize(null);
+            }
+        }
 
         return $this;
     }

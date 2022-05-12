@@ -17,6 +17,7 @@ class OrderType extends AbstractType
             ->add('fname', TextType::class , ['label' => 'Voornaam'])
             ->add('sname', TextType::class, ['label' => 'Achternaam'])
             ->add('address', TextType::class, ['label' => 'Adres'])
+            ->add('city', TextType::class, ['label' => 'Stad'])
             ->add('zipcode', TextType::class, ['label' => 'Postcode'])
             ->add('email', TextType::class, ['label' => 'Email adres'])
             ->add('save', SubmitType::class, ['label' => 'Bestellen'])
