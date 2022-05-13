@@ -1,5 +1,27 @@
 {% extends 'base.html.twig'%}
-{% block title %}Pizza Sopranos Contact{% endblock %}
+{% block title %}Pizza Sopranos Login{% endblock %}
 {% block body %}
 
+
+    {% for orders in order %}
+
+    <table>
+        <ul>Pizza</ul>
+        <li>{{ pizza.id }}</li>
+        <ul>Voornaam</ul>
+        <li>{{ order.fname }}</li>
+        <ul>Achternaam</ul>
+        <li>{{ order.sname }}</li>
+        <ul>Address</ul>
+        <li>{{ order.address }}</li>
+        <ul>Stad</ul>
+        <li>{{ order.city }}</li>
+        <ul>Postcode</ul>
+        <li>{{ order.zipcode }}</li>
+        <ul>Status</ul>
+        <li>{{ order.status }}</li>
+        <ul>Email</ul>
+        <li>{{ order.email }}</li>
+    </table>
+{% endfor %}
 {% endblock %}

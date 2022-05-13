@@ -29,14 +29,6 @@ class PizzaController extends AbstractController
 //    }
 //
     /**
-     * @Route ("/login", name="pizza_login")
-     */
-    public function contact(): Response
-    {
-        return $this->render("pizza/login.html.twig");
-    }
-
-    /**
      * @Route("/", name="pizza_homepage")
      */
     public function homepage(EntityManagerInterface $em)
@@ -55,9 +47,10 @@ class PizzaController extends AbstractController
      * @Route("/pizza/{id}")
      */
 
-    public function pizza(int $id, PizzaRepository $pizzaRepository){
+    public function pizza(int $id, PizzaRepository $pizzaRepository)
+    {
         $pizzas = $pizzaRepository->findBy(array("pizza" => $id));
-        return $this->render("pizza/pizza.html.twig",[
+        return $this->render("pizza/pizza.html.twig", [
             "pizzas" => $pizzas
         ]);
     }
@@ -79,10 +72,26 @@ class PizzaController extends AbstractController
             $order = $form->getData();
             $em->persist($order);
             $em->flush();
-            return $this->redirectToRoute('pizza_homepage');
+            return $this->redirectToRoute('pizza_login');
         }
         return $this->renderForm('order/order.html.twig', [
             'pizza' => $pizzaName,
             'form' => $form,]);
+    }
+
+    /**
+     * @Route ("/contact", name="pizza_contact")
+     */
+    public function contact(): Response
+    {
+        return $this->render("pizza/contact.html.twig");
+    }
+
+    /**
+     * @Route ("/login", name="pizza_login")
+     */
+    public function login(): Response
+    {
+        return $this->render("pizza/login.html.twig");
     }
 }
