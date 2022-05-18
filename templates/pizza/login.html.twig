@@ -1,27 +1,12 @@
-{% extends 'base.html.twig'%}
-{% block title %}Pizza Sopranos Login{% endblock %}
+{% extends 'base.html.twig' %}
 {% block body %}
+    <div class="container">
+        <h2>Orders ({{ orders|length }})</h2>
+        <ul class="list-group">
+            {% for order in orders %}
+                <li class="list-group-item">{{ order.fname }} {{ order.sname }},, <b>{{ order.address }}, {{ order.city }}, {{ order.zipcode }}</b>,, {{ order.status }}, <b>{{ order.pizza.name }}</b>, {{ order.size.name }} </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-
-    {% for orders in order %}
-
-    <table>
-        <ul>Pizza</ul>
-        <li>{{ pizza.id }}</li>
-        <ul>Voornaam</ul>
-        <li>{{ order.fname }}</li>
-        <ul>Achternaam</ul>
-        <li>{{ order.sname }}</li>
-        <ul>Address</ul>
-        <li>{{ order.address }}</li>
-        <ul>Stad</ul>
-        <li>{{ order.city }}</li>
-        <ul>Postcode</ul>
-        <li>{{ order.zipcode }}</li>
-        <ul>Status</ul>
-        <li>{{ order.status }}</li>
-        <ul>Email</ul>
-        <li>{{ order.email }}</li>
-    </table>
-{% endfor %}
 {% endblock %}

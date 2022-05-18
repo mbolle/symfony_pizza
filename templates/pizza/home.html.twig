@@ -5,6 +5,11 @@
    <h2 class="text-center">categories ({{ cat|length }})</h2>
 
     <div class="container">
+        {% for message in app.flashes('succes') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
     <div class="card-deck">
         <div class="row">
         {% for category in cat %}

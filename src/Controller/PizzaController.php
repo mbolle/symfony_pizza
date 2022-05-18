@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Order;
 use App\Entity\Pizza;
 use App\Forms\OrderType;
+use App\Repository\OrderRepository;
 use App\Repository\PizzaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
@@ -17,17 +18,6 @@ use Symfony\Config\Doctrine\Orm\EntityManagerConfig;
 
 class PizzaController extends AbstractController
 {
-//    /**
-//     * @Route("/", name="pizza_homepage")
-//     */
-//    public function randomPizzas(): Response
-//    {
-//        $pizzaCategories = ["Vegetarische pizza", "Vlees pizza", "Vis pizza"];
-//        return $this->render("pizza/home.html.twig", [
-//            'categories'=> $pizzaCategories
-//        ]);
-//    }
-//
     /**
      * @Route("/", name="pizza_homepage")
      */
@@ -72,7 +62,8 @@ class PizzaController extends AbstractController
             $order = $form->getData();
             $em->persist($order);
             $em->flush();
-            return $this->redirectToRoute('pizza_login');
+            $this->addFlash('succes', 'Uw bestelling is succesvol geplaatst!');
+            return $this->redirectToRoute('pizza_homepage');
         }
         return $this->renderForm('order/order.html.twig', [
             'pizza' => $pizzaName,
@@ -88,10 +79,13 @@ class PizzaController extends AbstractController
     }
 
     /**
-     * @Route ("/login", name="pizza_login")
+     * @Route("/login", name="pizza_showorders")
      */
-    public function login(): Response
+    public function showOrders(OrderRepository $orderRepository, PizzaRepository $pizza)
     {
-        return $this->render("pizza/login.html.twig");
+        $orders = $orderRepository ->findAll();
+//        $sizeId = strval($orders);
+        return $this->render('pizza/login.html.twig',
+            ['orders' => $orders]);
     }
 }
